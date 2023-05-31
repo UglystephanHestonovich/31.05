@@ -1,0 +1,38 @@
+Если у Вас ругается на потоки
+con = sqlite3.connect("database.db", check_same_thread=False)
+Торговая сеть. Часть 2
+Предполагается, что далее вы реализуете еще одну таблицу
+Примерный формат
+store_id, product_id, count
+POST /store/<id>/delete/Удалить склад и удалить все данные для склада с id, если существуют
+Ожидаемый ответ:
+{ 'status': 'ok'}
+POST /store/<id>/clear/Удалить все данные по товарам для склада с id, если существуют
+Ожидаемый ответ:
+{ 'status': 'ok'}
+GET /store/<id>/product/ узнать данные по продуктам на складе
+@app.route('/store/1/product/', methods=['GET'])
+{'status': 'ok', 'product_data': {'картошка': 10, 'молоко': 20}}
+{'status': 'fail', 'text': 'store does not exist'}
+POST /store/<id>/product/ добавить продукты на соответствующий склад
+requests.post('http://127.0.0.1:5000/1/product/',
+json={'product_data': {'картошка': 10, 'молоко': 20}
+Ответ
+{'status': 'ok' }
+{'status': 'fail', 'text': 'store does not exist'}
+{'status': 'fail', 'text': 'product does not exist'}
+Что будет тестироваться
+Тест 0
+/store/<id>/product/
+Тест 1
+/store/<id>/delete/
+/store/<id>/product/
+Тест 2
+POST /store/
+POST /store/<id>/product/
+Тест 3
+POST /product/
+GET /product/<id>/
+POST /store/<id>/product/
+Тест 4
++ POST /store/<id>/clear/
